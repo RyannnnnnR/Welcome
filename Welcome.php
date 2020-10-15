@@ -1,4 +1,3 @@
-
 <html>
 <head>
 <title> Bob's Auto Parts: Order result</title>
@@ -6,10 +5,10 @@
 <body>
     <?php
     $servername="127.0.0.1";
-    $user="root";
-    $password="";
+    $user="abc";
+    $password="abc";
     $dbname="Assignmentdb";
-
+    
     // Create connection
     $conn = mysqli_connect($servername,$user, $password,$dbname) or die(mysqli_connect_error());
 
@@ -31,7 +30,7 @@
     $stmt->close();
 
     $conn->close();
-    echo $$_POST["firstname"]." ".$_POST["lastname"].'<br/>';
+    echo $_POST["firstname"]." ".$_POST["lastname"].'<br/>';
     echo "total amount due is: ".($_POST["tyres"]* 110).'<br/>';
 
     ?>

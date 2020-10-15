@@ -18,3 +18,11 @@ INSERT INTO Orders(firstname, lastname,noOfTyres, amount)
 values('john','smith',2, 220);
 
 go
+
+CREATE USER 'abc'@'localhost' IDENTIFIED BY 'abc';
+
+go
+
+GRANT ALL PRIVILEGES ON Assignmentdb.* TO 'abc'@'localhost';
+
+go
