@@ -2,6 +2,10 @@ create database Assignmentdb;
 
 go
 
+use Assignemntdb;
+
+go
+
 Create TABLE Orders(
 firstname varchar(50) not null primary key,
 lastname varchar(50) not null,
