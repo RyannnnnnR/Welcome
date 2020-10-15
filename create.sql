@@ -6,7 +6,7 @@ use Assignmentdb;
 
 go
 
-Create TABLE Orders(
+Create TABLE if not exists Orders(
 `firstname` varchar(50) not null primary key,
 `lastname` varchar(50) not null,
 `noOftyres` int not null,
