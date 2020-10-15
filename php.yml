@@ -1,0 +1,26 @@
+- hosts: php
+  become: yes
+  tasks:
+      - name: install packages
+        apt: name={{ item }} update_cache=yes state=latest
+        with_items:
+              - git
+              - php
+              - php-mysqli
+              - mysql-server
+              - apache2
+              - libapache2-mod-php
+      - name: Remove existing html direcotry
+        file:
+          path: /var/www/html
+          state: absent
+      - name: Clone Git Repository
+        git: >
+          dest=/var/www/html
+          repo=https://github.com/RyannnnnnR/Welcome.git
+          update=yes
+          force=yes
+        become: yes
+      - name: execute sql script
+        shell: "mysql -h localhost -u root < /var/www/html/create.sql"
+        become: yes
