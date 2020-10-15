@@ -1,4 +1,4 @@
-create database Assignmentdb;
+create database if not exists Assignmentdb;
 
 go
 
