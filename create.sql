@@ -2,7 +2,7 @@ create database if not exists Assignmentdb;
 
 go
 
-use Assignemntdb;
+use Assignmentdb;
 
 go
 
