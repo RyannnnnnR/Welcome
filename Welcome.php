@@ -6,8 +6,8 @@
 <body>
     <?php
 
-    echo $_POST["firstname"]." ".$_POST["lastname"].'<br/>';
-    echo "total amount due is: ".($_POST["tyres"]* 110).'<br/>';
+    echo $_GET["firstname"]." ".$_GET["lastname"].'<br/>';
+    echo "total amount due is: ".($$_GET["tyres"]* 110).'<br/>';
 
     ?>
 </body>

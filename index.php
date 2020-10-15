@@ -5,37 +5,48 @@
 </head>
 
 <body>
-<form  action="welcome.php" method="post">
+<form  action="index.php" method="post">
 FisrtName: <input type="text" name="firstname" value="<?php echo $fname;?>"><br/><br/>
 LastName:  <input type="text" name="lastname" value="<?php echo $lname;?>"><br/><br/>
 Number of Tyres: <input type="number" name="tyres" value="<?php echo $tyre;?>"><br/><br/>
 <input type="submit" name="Calculate"><br/>
     
     <?php
-    $servername = "localhost";
-    $user="abc";
-    $password="abc";
+    $servername="localhost";
+    $user="root";
+    $password="alpine";
     $dbname="Assignmentdb";
 
     // Create connection
-    $conn = new mysqli($servername,$user,$password,$dbname);
+    $conn = new mysqli($servername,$user, $password,$dbname);
 
     // Check connection
     if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+        die("Connection failed: " . $conn->connect_error);
     }
     echo "Connected successfully";
 
-    $sql = "INSERT INTO Orders (firstname, lastname, noOftyres)
-    VALUES ('$firstname', '$lastname', '$tyres')";
+    $unsafe_firstname = $_POST['firstname'];
+    $unsafe_lasstname = $_POST['lastname'];
+    $unsafe_nooftyres = $_POST['tyres'];
+    $amount=$unsafe_nooftyres*110;
 
-    if ($conn->query($sql) === TRUE) {
-    echo "New record created successfully";
-    } else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
-    }
+    $stmt = $mysqli->prepare("INSERT INTO Orders (firstname, lastname, noOftyres, Amount)
+    VALUES (?, ?, ?,?)");
+
+    // TODO check that $stmt creation succeeded
+
+    // "s" means the database expects a string "i" means integer
+    $stmt->bind_param("ssii", $unsafe_firstname,$unsafe_lasstname,$unsafe_nooftyres,$amount);
+
+    $stmt->execute();
+
+    $stmt->close();
+
+    $mysqli->close();
 
     $conn->close();
+    header(sprintf('Location: Welcome.php?firstname=%s&lastname=%s&tyres=%d', $unsafe_firstname, $unsafe_lasstname, $unsafe_nooftyres))
     ?>
     </form>
 </body>
